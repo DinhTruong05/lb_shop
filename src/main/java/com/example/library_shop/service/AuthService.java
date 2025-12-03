@@ -63,7 +63,8 @@ public class AuthService {
         return new LoginResponse(
                 jwt,
                 user.getRole().name(),
-                user.getUsername()
+                user.getUsername(),
+                user.getFullName()
         );
     }
 }
