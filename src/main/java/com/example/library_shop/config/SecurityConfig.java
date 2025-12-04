@@ -14,6 +14,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import org.springframework.web.cors.CorsConfiguration;
+
+import java.util.List;
+
 @Configuration
 @RequiredArgsConstructor
 @EnableMethodSecurity
@@ -24,6 +28,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
+        // 🔥 Bật CORS GLOBAL
+        http.cors(cors -> cors.configurationSource(request -> {
+            CorsConfiguration config = new CorsConfiguration();
+            config.setAllowedOrigins(List.of("http://localhost:5173"));
+            config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+            config.setAllowedHeaders(List.of("*"));
+            config.setAllowCredentials(true);
+            return config;
+        }));
+
         http.csrf(csrf -> csrf.disable());
 
         http.sessionManagement(sess ->
@@ -31,8 +45,10 @@ public class SecurityConfig {
         );
 
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/**").permitAll()   // login, register
-                .anyRequest().authenticated()                  // còn lại yêu cầu JWT
+                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/upload/**").permitAll()   // ⭐ CHO PHÉP UPLOAD
+                .requestMatchers("/api/books/**").permitAll()    // (OPTIONAL) cho FE test ko cần login
+                .anyRequest().authenticated()
         );
 
         http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

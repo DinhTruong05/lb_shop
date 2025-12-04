@@ -42,6 +42,8 @@ dependencies {
 
     // Spring Security
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    // Cloud URL
+    implementation 'com.cloudinary:cloudinary-http44:1.33.0'
 
 
     /* ==================================================
