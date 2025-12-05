@@ -27,4 +27,6 @@ public class RegisterRequest {
 
     // role của user mới (READER là mặc định)
     private Role role = Role.READER;
+
+    private String avatar;
 }

@@ -73,5 +73,20 @@ public class BookService {
         bookRepository.delete(book);
     }
 
+    // Tổng số sách
+    public long countAllBooks() {
+        return bookRepository.count();
+    }
+
+    // Số sách đang mượn
+    public long countBorrowedBooks() {
+        return bookRepository.countByStatus("BORROWED");
+    }
+
+    // Số sách quá hạn
+    public long countOverdueBooks() {
+        return bookRepository.countOverdueBooks();
+    }
+
 
 }

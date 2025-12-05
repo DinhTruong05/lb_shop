@@ -35,6 +35,8 @@ public class AuthService {
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(request.getRole())
+                .avatar(request.getAvatar() != null ? request.getAvatar()
+                        : "https://i.pravatar.cc/150?u=" + request.getUsername()) // ⭐ avatar mặc định
                 .build();
 
         User saved = userRepository.save(user);
@@ -45,8 +47,10 @@ public class AuthService {
                 .username(saved.getUsername())
                 .email(saved.getEmail())
                 .role(saved.getRole())
+                .avatar(saved.getAvatar()) // ⭐ add avatar vào DTO
                 .build();
     }
+
 
     // LOGIN
     public LoginResponse login(String username, String rawPassword) {
@@ -64,7 +68,8 @@ public class AuthService {
                 jwt,
                 user.getRole().name(),
                 user.getUsername(),
-                user.getFullName()
+                user.getFullName(),
+                user.getAvatar()
         );
     }
 }

@@ -20,6 +20,7 @@ public class AuthController {
     // ============== REGISTER ==================
     @PostMapping("/register")
     public ResponseEntity<UserDTO> register(@Valid @RequestBody RegisterRequest request) {
+        System.out.println("🔥 REQUEST BODY: " + request);
         return ResponseEntity.ok(authService.register(request));
     }
 

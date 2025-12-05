@@ -48,6 +48,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/upload/**").permitAll()   // ⭐ CHO PHÉP UPLOAD
                 .requestMatchers("/api/books/**").permitAll()    // (OPTIONAL) cho FE test ko cần login
+                .requestMatchers("/api/dashboard/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
         );
 

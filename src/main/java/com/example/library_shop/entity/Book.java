@@ -3,6 +3,8 @@ package com.example.library_shop.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "books")
 @Data
@@ -25,4 +27,8 @@ public class Book {
     private String image; // URL ảnh bìa
 
     private Integer pricePerDay; // Giá thuê theo ngày
+
+    private String status;
+
+    private LocalDate dueDate;
 }
