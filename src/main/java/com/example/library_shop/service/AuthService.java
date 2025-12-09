@@ -72,5 +72,20 @@ public class AuthService {
                 user.getAvatar()
         );
     }
+
+    public UserDTO getCurrentUser(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return UserDTO.builder()
+                .id(user.getId())
+                .fullName(user.getFullName())
+                .username(user.getUsername())
+                .email(user.getEmail())
+                .role(user.getRole())
+                .avatar(user.getAvatar())
+                .build();
+    }
+
 }
 
